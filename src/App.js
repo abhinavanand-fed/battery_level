@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
 
-function App() {
+const batteryStyles = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '100vh',
+  fontFamily: 'sans-serif'
+};
+
+const batteryLevelStyles = {
+  fontSize: '3em',
+  color: '#333'
+};
+
+const BatteryStatus = () => {
+  const [batteryLevel, setBatteryLevel] = useState(null);
+
+  useEffect(() => {
+    if ('getBattery' in navigator) {
+      navigator.getBattery().then(battery => {
+        setBatteryLevel(battery.level);
+
+        battery.addEventListener('levelchange', () => {
+          setBatteryLevel(battery.level);
+        });
+      });
+    }
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={batteryStyles}>
+      <h1 style={batteryLevelStyles}>🔋: {batteryLevel ? (batteryLevel * 100).toFixed(2) + '%' : 'Loading...'}</h1>
     </div>
   );
-}
+};
 
-export default App;
+export default BatteryStatus;

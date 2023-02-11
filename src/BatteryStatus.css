@@ -1,0 +1,22 @@
+.battery-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    margin: 10px 0;
+  }
+  
+  .battery-status {
+    height: 40px;
+    width: 100%;
+    background-color: green;
+    border-radius: 8px;
+  }
+  
+  .battery-label {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
